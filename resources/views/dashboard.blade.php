@@ -1,18 +1,33 @@
-<x-layouts.app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-        </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-        </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>@yield('title', 'Admin Panel')</title>
+
+    {{-- CSS via Vite --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  </head>
+
+  <body
+    x-data="{ page: 'dashboard', sidebarToggle: false }"
+    class="bg-gray-100 dark:bg-black"
+  >
+    <div class="flex">
+      {{-- SIDEBAR --}}
+      @include('partials.sidebar')
+
+      {{-- MAIN WRAPPER --}}
+      <div class="relative flex flex-1 flex-col">
+        {{-- HEADER / TOPBAR --}}
+        @include('partials.header')
+
+        {{-- KONTEN HALAMAN --}}
+        <main class="p-6">
+          @yield('content')
+        </main>
+      </div>
     </div>
-</x-layouts.app>
+
+    @stack('scripts')
+  </body>
+</html>

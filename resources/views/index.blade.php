@@ -434,49 +434,52 @@
     </section>
 
     <!-- Map/Location Section -->
-    <section id="kontak" class="py-12 sm:py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative rounded-3xl overflow-hidden bg-cover bg-center sm:h-[500px]" style="background-image: url('aset/ssmapsgede.png');">
-                <div class="absolute top-8 left-8">
-                    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm location-card">
-                        <img src="aset/ssmapskecil.png" alt="Tampilan depan kantor Agrotera dengan papan nama besar dan area parkir luas" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <div class="space-y-4">
-                            <div>
-                                <h3 class="text-xl font-semibold mb-2">
-                                    <a href="https://maps.app.goo.gl/2wKDnR1KBXhks5qPA?g_st=ic" target="_blank" class="text-black-600 hover:text-blue-600">Agrotera</a>
-                                </h3>
-                                <div class="flex items-center gap-2 text-sm text-gray-600">
-                                    <span>5.0</span>
-                                    <span>(4,356)</span>
-                                </div>
+    <!-- Map/Location Section -->
+<section id="kontak" class="py-12 sm:py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative rounded-3xl overflow-hidden bg-cover bg-center sm:h-[500px]" style="background-image: url('aset/ssmapsgede.png');">
+            <div class="absolute top-8 left-8">
+                <!-- Bungkus seluruh card dengan <a> untuk membuatnya klikable -->
+                <a href="https://maps.app.goo.gl/Vs2q8pyVzaPdRkfcA" target="_blank" class="block bg-white rounded-2xl shadow-xl p-6 max-w-sm location-card" style="text-decoration: none; color: inherit;">
+                    <img src="aset/ssmapskecil.png" alt="Tampilan depan kantor Agrotera dengan papan nama besar dan area parkir luas" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <div class="space-y-4">
+                        <div>
+                            <!-- Hapus link di judul agar tidak duplikat -->
+                            <h3 class="text-xl font-semibold mb-2">
+                                Agrotera
+                            </h3>
+                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                <span>5.0</span>
+                                <span>(4,356)</span>
                             </div>
-                            <div class="space-y-3">
-                                <div class="flex items-start gap-3">
-                                    <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                    <p class="text-sm text-secondary">Jl. Sumowono-Limbangan Km. 7 Kab.Kendal, Kabupaten Semarang, Jawa Tengah 51383</p>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <p class="text-sm font-medium text-green-700">Open 24 Hours</p>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                    </svg>
-                                    <p class="text-sm text-secondary">0857-2369-2922</p>
-                                </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <p class="text-sm text-secondary">Jl. Sumowono-Limbangan Km. 7 Kab.Kendal, Kabupaten Semarang, Jawa Tengah 51383</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p class="text-sm font-medium text-green-700">Open 24 Hours</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                <p class="text-sm text-secondary">0857-2369-2922</p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     @include('components.footer')

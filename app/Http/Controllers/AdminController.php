@@ -3,30 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User; // kalau admin pakai model lain, ganti di sini
 
 class AdminController extends Controller
 {
-    // Method untuk menampilkan form login
+    // Tampilkan form login admin
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // Method untuk menangani login
+    // Proses login admin
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
         if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
             return redirect()->intended('admin/dashboard');
         }
 
-        return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
+        return back()->withErrors([
+            'email' => 'Email atau password tidak sesuai.',
+        ]);
     }
 
-    // Method untuk menampilkan halaman lupa password admin
-    public function showForgotPassword()
-    {
-        return view('auth.forgot-password'); // Pastikan kamu memiliki file forgot-password.blade.php
-    }
 }
