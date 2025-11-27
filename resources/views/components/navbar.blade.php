@@ -10,10 +10,10 @@
 
             <!-- Desktop Navigation -->
             <nav class="hidden lg:flex items-center gap-3">
-                <a href="{{ url('/') }}" class="px-4 py-2 text-secondary hover:text-primary transition-colors">Beranda</a>
-                <a href="{{ url('/tentangkami') }}" class="px-4 py-2 text-secondary hover:text-primary transition-colors">Tentang Kami</a>
-                <a href="{{ url('/produk') }}" class="px-4 py-2 text-secondary hover:text-primary transition-colors">Produk</a>
-                <a href="{{ url('/berita') }}" class="px-4 py-2 text-secondary hover:text-primary transition-colors">Berita</a>
+                <a href="{{ url('/') }}" class="px-4 py-2 {{ request()->is('/') ? 'text-primary' : 'text-secondary' }} hover:text-primary transition-colors">Beranda</a>
+                <a href="{{ url('/tentangkami') }}" class="px-4 py-2 {{ request()->is('tentangkami') ? 'text-primary' : 'text-secondary' }} hover:text-primary transition-colors">Tentang Kami</a>
+                <a href="{{ url('/produk') }}" class="px-4 py-2 {{ request()->is('produk') ? 'text-primary' : 'text-secondary' }} hover:text-primary transition-colors">Produk</a>
+                <a href="{{ url('/berita') }}" class="px-4 py-2 {{ request()->is('berita') ? 'text-primary' : 'text-secondary' }} hover:text-primary transition-colors">Berita</a>
                 <a href="https://api.whatsapp.com/send/?phone=6285723692922&text=Halo%2C+Saya+Tertarik+Dengan+Produk+Anda%21&type=phone_number&app_absent=0" class="px-4 py-2 bg-primary text-cream rounded-lg hover:bg-opacity-90 transition-all">Hubungi Kami</a>
             </nav>
 
@@ -25,10 +25,10 @@
 
         <!-- Mobile Navigation -->
         <nav id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-cream shadow-lg flex flex-col gap-2 p-4">
-            <a href="{{ url('/') }}" class="px-4 py-2 text-secondary hover:bg-beige rounded">Beranda</a>
-            <a href="{{ url('/tentangkami') }}" class="px-4 py-2 text-secondary hover:bg-beige rounded">Tentang Kami</a>
-            <a href="{{ url('/produk') }}" class="px-4 py-2 text-secondary hover:bg-beige rounded">Produk</a>
-            <a href="{{ url('/berita') }}" class="px-4 py-2 text-secondary hover:bg-beige rounded">Berita</a>
+            <a href="{{ url('/') }}" class="px-4 py-2 {{ request()->is('/') ? 'text-primary' : 'text-secondary' }} hover:bg-beige rounded">Beranda</a>
+            <a href="{{ url('/tentangkami') }}" class="px-4 py-2 {{ request()->is('tentangkami') ? 'text-primary' : 'text-secondary' }} hover:bg-beige rounded">Tentang Kami</a>
+            <a href="{{ url('/produk') }}" class="px-4 py-2 {{ request()->is('produk') ? 'text-primary' : 'text-secondary' }} hover:bg-beige rounded">Produk</a>
+            <a href="{{ url('/berita') }}" class="px-4 py-2 {{ request()->is('berita') ? 'text-primary' : 'text-secondary' }} hover:bg-beige rounded">Berita</a>
             <a href="https://api.whatsapp.com/send/?phone=6285723692922&text=Halo%2C+Saya+Tertarik+Dengan+Produk+Anda%21&type=phone_number&app_absent=0" class="px-4 py-2 bg-primary text-cream rounded text-center">Hubungi Kami</a>
         </nav>
     </div>
@@ -40,7 +40,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Inisialisasi ikon Lucide untuk tombol menu
-        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        if (typeof lucide !== '' && lucide.createIcons) {
             lucide.createIcons();
         } else {
             console.warn('Lucide tidak dimuat – ikon menu mungkin tidak muncul.');

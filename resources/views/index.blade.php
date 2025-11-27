@@ -62,37 +62,37 @@
             object-fit: cover;
         }
 
-    /* Tag kategori produk dengan padding atas dan bawah diperbesar */
-    .card-produk .tag {
-      position: absolute;
-      top: 8px;
-      left: 16px;
-      background: white;
-      border-radius: 9999px;
-      padding: 6px 12px; /* tambah padding vertikal */
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 10px;
-      color: #6B8E23;
-      line-height: 16px;
-      display: inline-block;
-      pointer-events: none;
-    }
+        /* Tag kategori produk dengan padding atas dan bawah diperbesar */
+        .card-produk .tag {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        background: white;
+        border-radius: 9999px;
+        padding: 6px 12px; /* tambah padding vertikal */
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 10px;
+        color: #6B8E23;
+        line-height: 16px;
+        display: inline-block;
+        pointer-events: none;
+        }
 
-    .card-produk .card-title {
-      font-weight: 700;
-      font-size: 1.25rem; /* text-xl */
-      margin-top: 1.5rem;
-      margin-bottom: 0.25rem;
-    }
+        .card-produk .card-title {
+        font-weight: 700;
+        font-size: 1.25rem; /* text-xl */
+        margin-top: 1.5rem;
+        margin-bottom: 0.25rem;
+        }
 
-    .card-produk .card-subtitle {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 0.875rem; /* text-sm */
-      line-height: 1.25rem;
-      color: rgba(93, 64, 55, 0.8);
-    }
+        .card-produk .card-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 0.875rem; /* text-sm */
+        line-height: 1.25rem;
+        color: rgba(93, 64, 55, 0.8);
+        }
 
         .testimonial-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -119,6 +119,8 @@
             opacity: 1;
             transform: translateX(0);
         }
+
+        
     </style>
 </head>
 
@@ -174,32 +176,39 @@
     </section>
 
     <!-- About Section -->
-    <section id="tentang" class="py-12 sm:py-16 lg:py-20 bg-beige">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                <!-- About Image -->
-                <div class="order-2 lg:order-1">
-                    <img src="aset/tentangkami1.png" alt="Suasana kebun sayuran Desa Gondang dengan petani bekerja di ladang hijau subur" class="w-full h-auto rounded-3xl shadow-xl">
-                </div>
+<section id="tentang" class="py-12 sm:py-16 lg:py-20 bg-beige">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <!-- About Image -->
+            <div class="order-2 lg:order-1">
+                <img src="aset/tentangkami1.png" alt="Suasana kebun sayuran Desa Gondang dengan petani bekerja di ladang hijau subur" class="w-full h-auto rounded-3xl shadow-xl">
+            </div>
 
-                <!-- About Content -->
-                <div class="order-1 lg:order-2 flex flex-col gap-6">
-                    <div class="flex flex-col gap-3">
-                        <p class="text-secondary text-base sm:text-lg">Tentang Kami</p>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-secondary font-lato leading-tight">
-                            AGROTERA Sebuah Gerakan untuk Petani di Desa Gondang
-                        </h2>
-                    </div>
-                    <p class="text-secondary text-base leading-relaxed">
-                        Dari kebun-kebun terbaik di Desa Gondang, kami hadirkan sayur mayur segar pilihan khusus untuk Anda di wilayah Semarang. Setiap helainya adalah bukti komitmen kami pada kualitas, sekaligus undangan bagi Anda untuk turut serta dalam gerakan memajukan petani lokal.
-                    </p>
-                    <a href="{{ url('/tentangkami') }}" class="inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
-                        <span class="font-medium">Tentang Kami</span>
-                    </a>
+            <!-- About Content -->
+            <div class="order-1 lg:order-2 flex flex-col gap-6">
+                <div class="flex flex-col gap-3">
+                    <p class="text-secondary text-base sm:text-lg">Tentang Kami</p>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-secondary font-lato leading-tight">
+                        AGROTERA Sebuah Gerakan untuk Petani di Desa Gondang
+                    </h2>
                 </div>
+                <p class="text-secondary text-base leading-relaxed">
+                    Dari kebun-kebun terbaik di Desa Gondang, kami hadirkan sayur mayur segar pilihan khusus untuk Anda di wilayah Semarang. Setiap helainya adalah bukti komitmen kami pada kualitas, sekaligus undangan bagi Anda untuk turut serta dalam gerakan memajukan petani lokal.
+                </p>
+                <a href="{{ url('/tentangkami') }}" class="hidden lg:inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
+                    <span class="font-medium">Tentang Kami</span>
+                </a>
             </div>
         </div>
-    </section>
+        <!-- Tombol untuk layout kecil (di bawah gambar) -->
+        <div class="block lg:hidden mt-6 flex justify-end">
+            <a href="{{ url('/tentangkami') }}" class="inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
+                <span class="font-medium">Tentang Kami</span>
+            </a>
+        </div>
+    </div>
+</section>
+
 
     <!-- Video Banner -->
     <section class="py-8 sm:py-12 bg-beige">
@@ -262,13 +271,13 @@
         </div>
 
         <!-- CTA Button -->
-        <div class="flex justify-start mt-10">
-        <a href="{{ url('/produk') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-cream rounded-full border border-primary hover:bg-cream hover:text-primary transition-all">
-            <span class="font-medium">Lihat Semua Produk</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </a>
+        <div class="flex justify-center lg:justify-start mt-10">
+            <a href="{{ url('/produk') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-cream rounded-full border border-primary hover:bg-cream hover:text-primary transition-all">
+                <span class="font-medium">Lihat Semua Produk</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
         </div>
 
     </section>
@@ -434,14 +443,13 @@
     </section>
 
     <!-- Map/Location Section -->
-    <!-- Map/Location Section -->
 <section id="kontak" class="py-12 sm:py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative rounded-3xl overflow-hidden bg-cover bg-center sm:h-[500px]" style="background-image: url('aset/ssmapsgede.png');">
-            <div class="absolute top-8 left-8">
+        <div class="relative rounded-3xl overflow-hidden bg-cover bg-center min-h-[400px] sm:h-[500px]" style="background-image: url('aset/ssmapsgede.png');">
+            <div class="absolute inset-0 flex items-center justify-center lg:justify-start lg:ml-4 p-4">
                 <!-- Bungkus seluruh card dengan <a> untuk membuatnya klikable -->
-                <a href="https://maps.app.goo.gl/Vs2q8pyVzaPdRkfcA" target="_blank" class="block bg-white rounded-2xl shadow-xl p-6 max-w-sm location-card" style="text-decoration: none; color: inherit;">
-                    <img src="aset/ssmapskecil.png" alt="Tampilan depan kantor Agrotera dengan papan nama besar dan area parkir luas" class="w-full h-48 object-cover rounded-lg mb-4">
+                <a href="https://maps.app.goo.gl/Vs2q8pyVzaPdRkfcA" target="_blank" class="block bg-white rounded-2xl shadow-xl p-4 sm:p-6 max-w-sm w-full location-card" style="text-decoration: none; color: inherit;">
+                    <img src="aset/ssmapskecil.png" alt="Tampilan depan kantor Agrotera dengan papan nama besar dan area parkir luas" class="w-full h-32 sm:h-48 object-cover rounded-lg mb-4">
                     <div class="space-y-4">
                         <div>
                             <!-- Hapus link di judul agar tidak duplikat -->
@@ -480,6 +488,7 @@
         </div>
     </div>
 </section>
+
 
     <!-- Footer -->
     @include('components.footer')

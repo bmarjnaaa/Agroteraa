@@ -164,7 +164,7 @@
     Lihat Pilihan Produk Kami
   </h2>
 
-  <div class="flex justify-center gap-4 mb-10 p-2">
+  <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10 p-2">
     <button class="filter-btn active">All Products</button>
     <button class="filter-btn">Sayuran</button>
     <button class="filter-btn">Buah</button>
@@ -218,19 +218,77 @@
     @include('components.footer')
 
     <script>
-    // JavaScript untuk trigger animasi saat scroll - taruh di bagian bawah sebelum </body>
-    document.addEventListener('DOMContentLoaded', () => {
-        const slideElement = document.querySelector('.slide-in-right');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                    observer.unobserve(entry.target); // Hentikan observasi setelah animasi
-                }
-            });
-        });
-        if(slideElement) observer.observe(slideElement);
-    });
+      // JavaScript untuk trigger animasi saat scroll - taruh di bagian bawah sebelum </body>
+      document.addEventListener('DOMContentLoaded', () => {
+          const slideElement = document.querySelector('.slide-in-right');
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      entry.target.classList.add('animate');
+                      observer.unobserve(entry.target); // Hentikan observasi setelah animasi
+                  }
+              });
+          });
+          if(slideElement) observer.observe(slideElement);
+      });
+
+      // Kode baru untuk filter produk
+      document.addEventListener('DOMContentLoaded', () => {
+          const filterButtons = document.querySelectorAll('.filter-btn'); // Ambil semua tombol filter
+          const productCards = document.querySelectorAll('.card-produk'); // Ambil semua card produk
+
+          // Fungsi untuk menyaring produk
+          function filterProducts(category) {
+              productCards.forEach(card => {
+                  const tagElement = card.querySelector('.tag'); // Ambil elemen tag di dalam card
+                  const cardCategory = tagElement ? tagElement.textContent.trim() : ''; // Ambil teks tag (misalnya "Sayur")
+
+                  // Jika kategori adalah "All Products" atau cocok dengan tag, tampilkan; jika tidak, sembunyikan
+                  if (category === 'All Products' || 
+                      (category === 'Sayuran' && cardCategory === 'Sayur') ||
+                      (category === 'Buah' && cardCategory === 'Buah') ||
+                      (category === 'Bumbu' && cardCategory === 'Bumbu') ||
+                      (category === 'Umbi - Umbian' && cardCategory === 'Umbi') ||
+                      (category === 'Rempah' && cardCategory === 'Rempah')) {
+                      card.style.display = 'block'; // Tampilkan card
+                  } else {
+                      card.style.display = 'none'; // Sembunyikan card
+                  }
+              });
+          }
+
+          // Tambahkan event listener ke setiap tombol filter
+          filterButtons.forEach(button => {
+              button.addEventListener('click', () => {
+                  // Hapus class 'active' dari semua tombol
+                  filterButtons.forEach(btn => btn.classList.remove('active'));
+                  // Tambahkan class 'active' ke tombol yang diklik
+                  button.classList.add('active');
+
+                  // Ambil teks tombol sebagai kategori
+                  const category = button.textContent.trim();
+                  // Panggil fungsi filter
+                  filterProducts(category);
+              });
+          });
+
+          // Secara default, tampilkan semua produk (karena "All Products" aktif)
+          filterProducts('All Products');
+      });
+      
+      // JavaScript untuk trigger animasi saat scroll - taruh di bagian bawah sebelum </body>
+      document.addEventListener('DOMContentLoaded', () => {
+          const slideElement = document.querySelector('.slide-in-right');
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      entry.target.classList.add('animate');
+                      observer.unobserve(entry.target); // Hentikan observasi setelah animasi
+                  }
+              });
+          });
+          if(slideElement) observer.observe(slideElement);
+      });
     </script>
 
 </body>

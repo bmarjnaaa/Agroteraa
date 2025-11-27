@@ -131,15 +131,39 @@
         box-shadow: 0px 0px 6px rgba(0,0,0,0.25);
         overflow: hidden;
         gap: 20px;
-        padding: 20px;
+        padding: 20px;  /* Padding sama di semua sisi */
+        flex-wrap: wrap;  /* Menambahkan untuk memastikan elemen membungkus */
     }
 
     .featured-news-card img {
         flex: 0 0 439px;
         height: 320px;
-        margin: 20px 20px 20px 20px;
+        margin: 20px;
         padding-bottom: 4px;
         object-fit: cover;
+        border-radius: 0px; /* Menambahkan border radius pada gambar untuk kelancaran tampilan */
+    }
+
+    /* Gambar akan lebih fleksibel pada layar kecil */
+    @media (max-width: 768px) {
+        .featured-news-card {
+            flex-direction: column;  /* Membuat layout gambar dan teks menjadi kolom pada layar kecil */
+            align-items: stretch;  /* Ubah dari center ke stretch agar gambar/teks mengisi lebar penuh tanpa margin yang menyebabkan batas kanan berbeda */
+            padding: 15px;  /* Kurangi padding sedikit di mobile untuk hemat ruang, tapi tetap sama di semua sisi */
+            gap: 15px;  /* Kurangi gap agar lebih rapat */
+        }
+        .featured-news-card img {
+            width: 100%;  /* Gambar full width untuk mengisi container tanpa overflow */
+            height: auto;  /* Gambar menyesuaikan tinggi */
+            margin: 0;  /* Hapus margin agar batas kanan sama dengan sisi lain (tidak ada offset) */
+            padding-bottom: 0;  /* Menghapus padding bawah jika tidak diperlukan */
+            border-radius: 0px; /* Border radius tetap ada */
+            max-width: 100%;  /* Pastikan tidak overflow ke kanan */
+            
+            /* Tambahkan padding di sini untuk gambar di mobile */
+            padding: 20px;  /* Padding 10px di semua sisi (atas, kanan, bawah, kiri) */
+            /* Atau jika ingin spesifik: padding-top: 10px; padding-right: 15px; padding-bottom: 10px; padding-left: 15px; */
+        }
     }
 
     .featured-news-content {
@@ -187,29 +211,28 @@
     }
 
     .btn-read-more { 
-    background: #6B8E23;
-    color: white;
-    border-radius: 9999px;
-    padding: 10px 20px;
-    font-weight: 500;
-    font-size: 14px;
-    text-align: center;
-    width: fit-content;
-    margin-top: 20px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    display: inline-flex;
-    max-width: max-content;
-}
+        background: #6B8E23;
+        color: white;
+        border-radius: 9999px;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 14px;
+        text-align: center;
+        width: fit-content;
+        margin-top: 20px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        display: inline-flex;
+        max-width: max-content;
+    }
 
-/* Hover untuk tombol "Baca selengkapnya" */
-.btn-read-more:hover {
-    background-color: #FFFEFA; /* Warna latar belakang saat hover */
-    color: #6B8E23; /* Warna teks berubah */
-    border: 1px solid #6B8E23; /* Tambahkan border */
-}
-
+    /* Hover untuk tombol "Baca selengkapnya" */
+    .btn-read-more:hover {
+        background-color: #FFFEFA; /* Warna latar belakang saat hover */
+        color: #6B8E23; /* Warna teks berubah */
+        border: 1px solid #6B8E23; /* Tambahkan border */
+    }
 
     /* Latest News Section */
     .latest-news-section {
@@ -338,7 +361,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-2xl sm:text-2xl font-semibold text-secondary font-lato mb-6">Berita Unggulan</h2>
             <article class="featured-news-card">
-                <img src="aset/beritaunggulan.png" alt="Berita Unggulan" />
+                <img src="aset/beritaunggulan.png" alt="Ilustrasi berita unggulan tentang Agrotera Rest Area yang membantu hilirisasi petani" class="featured-news-image"/>
                 <div class="featured-news-content">
                     <div class="tag-date">
                         <span class="tag">Artikel</span>
@@ -353,7 +376,7 @@
     </section>
 
     <!-- Berita Terbaru -->
-    <section class="py-0 sm:py-2 lg:py-6 bg-beige mb-12 mt-0">
+    <section class="py-6 sm:py-2 lg:py-6 bg-beige mb-12 mt-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-2xl sm:text-2xl font-semibold text-secondary font-lato mb-6">Berita Terbaru</h2>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
