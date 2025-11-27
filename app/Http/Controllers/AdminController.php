@@ -34,4 +34,12 @@ class AdminController extends Controller
         ]);
     }
 
+    // Tambahkan method untuk dashboard admin
+    public function dashboard()
+    {
+        // Jika perlu data dinamis (misalnya list akun), ambil di sini dan pass ke view
+        // Contoh: $users = User::all(); return view('lifewire.partials.admin_layout', compact('users'));
+        
+        return view('lifewire.partials.admin_layout');
+    }
 }

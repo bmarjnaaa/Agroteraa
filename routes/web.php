@@ -7,7 +7,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AdminController;
-
+use App\Livewire\Actions\Logout;
 // ========= PUBLIC =========
 
 // Pilih salah satu home, jangan dobel route '/'
@@ -31,6 +31,13 @@ Route::get('/tentangkami', [TentangController::class, 'index'])->name('tentangka
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 // Proses login admin
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+// Tambahkan route untuk dashboard admin (setelah login)
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->middleware('auth')->name('admin.dashboard');
+
+
+
+Route::post('/logout', Logout::class)->name('logout'); 
+// atau bisa juga Route::get sesuai preferensi, tapi POST disarankan untuk logout
 
 // ========= USER DASHBOARD (FORTIFY/VOLT) =========
 

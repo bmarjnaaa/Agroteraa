@@ -167,14 +167,30 @@
 
         {{-- Password --}}
         <label for="password" class="input-label mt-6">Kata Sandi</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="********"
-          required
-          autocomplete="current-password"
-        />
+        <div class="relative">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="********"
+            required
+            autocomplete="current-password"
+            class="w-full h-14 px-4 pr-12 rounded-lg border border-gray-300 text-secondary text-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <button type="button" id="togglePassword" aria-label="Tampilkan sembunyikan kata sandi" 
+            class="absolute inset-y-0 right-3 flex items-center text-secondary opacity-70 hover:opacity-100 transition">
+            <!-- Icon Mata Tertutup (default) -->
+            <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 block">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.99 9.99 0 015.449-5.916m3.976-1.23A9.97 9.97 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.99 9.99 0 01-1.581 3.019M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+            </svg>
+            <!-- Icon Mata Terbuka (disembunyikan default) -->
+            <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 hidden">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
         @error('password')
           <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
         @enderror
@@ -185,5 +201,26 @@
 
     </div>
   </div>
+
+  <!-- Script Toggle Password -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const eyeOpen = document.getElementById('eyeOpen');
+      const eyeClosed = document.getElementById('eyeClosed');
+      togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        if(type === 'text') {
+          eyeOpen.classList.remove('hidden');
+          eyeClosed.classList.add('hidden');
+        } else {
+          eyeOpen.classList.add('hidden');
+          eyeClosed.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

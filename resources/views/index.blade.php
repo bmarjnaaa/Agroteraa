@@ -176,38 +176,38 @@
     </section>
 
     <!-- About Section -->
-<section id="tentang" class="py-12 sm:py-16 lg:py-20 bg-beige">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <!-- About Image -->
-            <div class="order-2 lg:order-1">
-                <img src="aset/tentangkami1.png" alt="Suasana kebun sayuran Desa Gondang dengan petani bekerja di ladang hijau subur" class="w-full h-auto rounded-3xl shadow-xl">
-            </div>
-
-            <!-- About Content -->
-            <div class="order-1 lg:order-2 flex flex-col gap-6">
-                <div class="flex flex-col gap-3">
-                    <p class="text-secondary text-base sm:text-lg">Tentang Kami</p>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-secondary font-lato leading-tight">
-                        AGROTERA Sebuah Gerakan untuk Petani di Desa Gondang
-                    </h2>
+    <section id="tentang" class="py-12 sm:py-16 lg:py-20 bg-beige">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <!-- About Image -->
+                <div class="order-2 lg:order-1">
+                    <img src="aset/tentangkami1.png" alt="Suasana kebun sayuran Desa Gondang dengan petani bekerja di ladang hijau subur" class="w-full h-auto rounded-3xl shadow-xl">
                 </div>
-                <p class="text-secondary text-base leading-relaxed">
-                    Dari kebun-kebun terbaik di Desa Gondang, kami hadirkan sayur mayur segar pilihan khusus untuk Anda di wilayah Semarang. Setiap helainya adalah bukti komitmen kami pada kualitas, sekaligus undangan bagi Anda untuk turut serta dalam gerakan memajukan petani lokal.
-                </p>
-                <a href="{{ url('/tentangkami') }}" class="hidden lg:inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
+
+                <!-- About Content -->
+                <div class="order-1 lg:order-2 flex flex-col gap-6">
+                    <div class="flex flex-col gap-3">
+                        <p class="text-secondary text-base sm:text-lg">Tentang Kami</p>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-secondary font-lato leading-tight">
+                            AGROTERA Sebuah Gerakan untuk Petani di Desa Gondang
+                        </h2>
+                    </div>
+                    <p class="text-secondary text-base leading-relaxed">
+                        Dari kebun-kebun terbaik di Desa Gondang, kami hadirkan sayur mayur segar pilihan khusus untuk Anda di wilayah Semarang. Setiap helainya adalah bukti komitmen kami pada kualitas, sekaligus undangan bagi Anda untuk turut serta dalam gerakan memajukan petani lokal.
+                    </p>
+                    <a href="{{ url('/tentangkami') }}" class="hidden lg:inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
+                        <span class="font-medium">Tentang Kami</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Tombol untuk layout kecil (di bawah gambar) -->
+            <div class="block lg:hidden mt-6 flex justify-end">
+                <a href="{{ url('/tentangkami') }}" class="inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
                     <span class="font-medium">Tentang Kami</span>
                 </a>
             </div>
         </div>
-        <!-- Tombol untuk layout kecil (di bawah gambar) -->
-        <div class="block lg:hidden mt-6 flex justify-end">
-            <a href="{{ url('/tentangkami') }}" class="inline-flex items-center px-6 py-3 bg-beige border border-primary text-primary rounded-full hover:bg-primary hover:text-cream transition-all w-fit">
-                <span class="font-medium">Tentang Kami</span>
-            </a>
-        </div>
-    </div>
-</section>
+    </section>
 
 
     <!-- Video Banner -->
