@@ -174,42 +174,17 @@
   </div>
 
   <div class="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 justify-center">
-    <!-- Card Produk -->
-    <article class="card-produk bg-beige rounded-lg shadow-lg overflow-hidden relative font-lato w-full max-w-[280px] mx-auto">
-      <img src="aset/selada.png" alt="Selada Keriting" class="w-full h-[224px] object-cover" />
+    <!-- Loop dinamis untuk produk dari database -->
+    @foreach($products as $product)
+    <article class="card-produk bg-beige rounded-lg shadow-lg overflow-hidden relative font-lato w-full max-w-[280px] mx-auto" data-category="{{ $product->category }}">
+      <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-[224px] object-cover" />
       <div class="p-4 text-brand-brown relative">
-        <div class="tag absolute top-[8px] left-4 bg-white rounded-full px-3 py-[2px] font-inter font-medium text-xs text-primary inline-block">Sayur</div>
-        <h3 class="card-title font-bold text-xl mt-6 mb-1">Selada Keriting</h3>
-        <p class="card-subtitle text-sm font-inter text-brand-brown/80 leading-5">Lactuca sativa L</p>
+        <div class="tag absolute top-[8px] left-4 bg-white rounded-full px-3 py-[2px] font-inter font-medium text-xs text-primary inline-block">{{ $product->category }}</div>
+        <h3 class="card-title font-bold text-xl mt-6 mb-1">{{ $product->name }}</h3>
+        <p class="card-subtitle text-sm font-inter text-brand-brown/80 leading-5">{{ $product->description ?? 'Deskripsi tidak tersedia' }}</p>
       </div>
     </article>
-
-    <article class="card-produk bg-beige rounded-lg shadow-lg overflow-hidden relative font-lato w-full max-w-[280px] mx-auto">
-      <img src="aset/brokoli.png" alt="Brokoli Hijau" class="w-full h-[224px] object-cover" />
-      <div class="p-4 text-brand-brown relative">
-        <div class="tag absolute top-[8px] left-4 bg-white rounded-full px-3 py-[2px] font-inter font-medium text-xs text-primary inline-block">Sayur</div>
-        <h3 class="card-title font-bold text-xl mt-6 mb-1">Brokoli Hijau</h3>
-        <p class="card-subtitle text-sm font-inter text-brand-brown/80 leading-5">Brassica oleracea var</p>
-      </div>
-    </article>
-
-    <article class="card-produk bg-beige rounded-lg shadow-lg overflow-hidden relative font-lato w-full max-w-[280px] mx-auto">
-      <img src="aset/kentang.png" alt="Kentang" class="w-full h-[224px] object-cover" />
-      <div class="p-4 text-brand-brown relative">
-        <div class="tag absolute top-[8px] left-4 bg-white rounded-full px-3 py-[2px] font-inter font-medium text-xs text-primary inline-block">Umbi</div>
-        <h3 class="card-title font-bold text-xl mt-6 mb-1">Kentang</h3>
-        <p class="card-subtitle text-sm font-inter text-brand-brown/80 leading-5">Solanum tuberosum</p>
-      </div>
-    </article>
-
-    <article class="card-produk bg-beige rounded-lg shadow-lg overflow-hidden relative font-lato w-full max-w-[280px] mx-auto">
-      <img src="aset/alpukat.png" alt="Alpukat" class="w-full h-[224px] object-cover" />
-      <div class="p-4 text-brand-brown relative">
-        <div class="tag absolute top-[8px] left-4 bg-white rounded-full px-3 py-[2px] font-inter font-medium text-xs text-primary inline-block">Buah</div>
-        <h3 class="card-title font-bold text-xl mt-6 mb-1">Alpukat</h3>
-        <p class="card-subtitle text-sm font-inter text-brand-brown/80 leading-5">Persea americana</p>
-      </div>
-    </article>
+    @endforeach
   </div>
 </section>
 

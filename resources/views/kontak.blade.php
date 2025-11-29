@@ -79,7 +79,8 @@
                     </h2>
                 </div>
 
-                <form class="space-y-6" method="POST" action="">
+                <form class="space-y-6" method="POST" action="{{ route('kontak') }}">
+                    @csrf
                     <!-- Nama Lengkap -->
                     <div>
                         <input 
@@ -131,22 +132,40 @@
     @include('components.footer')
 
     <script>
-        // Form handling (optional - tambahkan PHP processing di sini)
+    // Form handling
         <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nama = htmlspecialchars($_POST['nama'] ?? '');
-            $email = htmlspecialchars($_POST['email'] ?? '');
-            $pesan = htmlspecialchars($_POST['pesan'] ?? '');
+            // Ambil data dari form dan sanitasi
+            $nama = htmlspecialchars(trim($_POST['nama'] ?? ''));
+            $email_pengirim = htmlspecialchars(trim($_POST['email'] ?? ''));
+            $pesan = htmlspecialchars(trim($_POST['pesan'] ?? ''));
 
-            // Di sini Anda bisa menambahkan logika untuk:
-            // - Simpan ke database
-            // - Kirim email
-            // - Validasi data
+            // Validasi sederhana (opsional, tapi direkomendasikan)
+            if (empty($nama) || empty($email_pengirim) || empty($pesan) || !filter_var($email_pengirim, FILTER_VALIDATE_EMAIL)) {
+                echo "alert('Harap isi semua field dengan benar.');";
+                exit;
+            }
 
-            echo "
-            // Show success message
-            alert('Terima kasih! Pesan Anda telah terkirim.');
-            ";
+            // Konfigurasi email
+            $to = 'werkudara@gmail.com'; // Email tujuan
+            $subject = 'Pesan Baru dari Form Kontak AGROTERA'; // Subjek email
+            $message = "
+            Nama: $nama\n
+            Email Pengirim: $email_pengirim\n
+            Pesan:\n$pesan
+            "; // Body email
+            $headers = "From: $email_pengirim\r\n"; // Header From (gunakan email pengirim)
+            $headers .= "Reply-To: $email_pengirim\r\n"; // Reply-To agar mudah balas
+            $headers .= "Content-Type: text/plain; charset=UTF-8\r\n"; // Encoding
+
+            // Kirim email
+            if (mail($to, $subject, $message, $headers)) {
+                // Jika berhasil
+                echo "alert('Terima kasih! Pesan Anda telah terkirim ke email kami.');";
+            } else {
+                // Jika gagal
+                echo "alert('Maaf, terjadi kesalahan saat mengirim pesan. Coba lagi nanti.');";
+            }
         }
         ?>
     </script>

@@ -172,7 +172,7 @@
             type="password"
             id="password"
             name="password"
-            placeholder="********"
+            placeholder="masukkan kata sandi"
             required
             autocomplete="current-password"
             class="w-full h-14 px-4 pr-12 rounded-lg border border-gray-300 text-secondary text-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary"

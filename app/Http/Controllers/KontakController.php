@@ -1,24 +1,30 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class KontakController extends Controller
 {
-    public function submit(Request $request)
+    public function kirimPesan(Request $request)
     {
-        // Validasi data form
-        $validated = $request->validate([
+        $request->validate([
             'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email',
             'pesan' => 'required|string',
         ]);
 
-        // Simpan atau kirim pesan ke email, atau lakukan hal lainnya
-        // Misalnya, menggunakan Mail::send() untuk mengirim email
+        $data = [
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'pesan' => $request->pesan,
+        ];
 
-        // Kembali ke halaman kontak dengan pesan sukses
-        return redirect()->route('kontak')->with('success', 'Pesan Anda telah terkirim!');
+        Mail::raw("Nama: {$data['nama']}\nEmail: {$data['email']}\nPesan: {$data['pesan']}", function ($message) use ($data) {
+            $message->to('bagroteraindonesia@gmail.com')
+                    ->subject('Pesan Baru dari Kontak AGROTERA')
+                    ->from($data['email'], $data['nama']);
+        });
+
+        return back()->with('success', 'Pesan terkirim!');
     }
 }

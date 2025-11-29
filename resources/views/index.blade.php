@@ -1,3 +1,7 @@
+@php
+    $useSwiper = $testimonials->count() > 3;
+@endphp
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,7 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lato:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -95,12 +101,38 @@
         }
 
         .testimonial-card {
+            max-width: 370px; /* Ditingkatkan dari 280px agar card lebih lebar ke kanan dan kiri */
+            background-color: #FFFEFA; /* Sesuai warna cream */
+            border-radius: 1.5rem; /* Rounded 3xl */
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25); /* Shadow serupa card produk */
+            padding: 1.5rem; /* padding 6 */
+            font-family: 'Lato', sans-serif;
+            color: #5D4037; /* Warna text */
+            overflow-wrap: break-word; /* Membungkus kata panjang */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Pastikan padding masuk hitungan */
+            width: 100%; /* Tambahan agar card mengisi lebar maksimal dalam grid */
+            min-height: 300px; /* Tambahan: tinggi minimum agar card "rata" (tinggi sama), sesuaikan jika perlu */
         }
+
         .testimonial-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            padding: 0 0.5rem; /* Tambahkan padding horisontal sebagai gap antar slide */
+            box-sizing: border-box;
+        }
+
+        .swiper.testimonialSwiper {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            overflow: hidden;
+        }
+
         .location-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -129,19 +161,51 @@
     @include('components.navbar')
 
     <!-- Hero Section -->
-    <section id="beranda" class="bg-cream py-12 sm:py-16 lg:py-24 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-8 items-start">
-                <!-- Hero Content -->
-                <div class="flex flex-col gap-8 z-10 relative slide-in-left">
-                    <div class="flex flex-col gap-5">
-                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary font-lato leading-tight">
-                            Dari Petani Gondang,<br />Untuk Kesejahteraan Bersama
-                        </h1>
-                        <p class="text-base sm:text-lg text-secondary leading-relaxed">
-                            Agrotera hadir untuk memajukan kesejahteraan petani lokal dengan menyalurkan hasil panen terbaik langsung ke tangan Anda, memutus rantai tengkulak yang tidak adil.
-                        </p>
+<section id="beranda" class="bg-cream py-12 sm:py-16 lg:py-24 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+            <!-- Hero Content -->
+            <div class="flex flex-col gap-8 z-10 relative slide-in-left">
+                <div class="flex flex-col gap-5">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary font-lato leading-tight">
+                        Dari Petani Gondang,<br />Untuk Kesejahteraan Bersama
+                    </h1>
+                    <p class="text-base sm:text-lg text-secondary leading-relaxed">
+                        Agrotera hadir untuk memajukan kesejahteraan petani lokal dengan menyalurkan hasil panen terbaik langsung ke tangan Anda, memutus rantai tengkulak yang tidak adil.
+                    </p>
+                </div>
+                <!-- Tombol disembunyikan di mobile (akan muncul di bawah Hero Image & Stats) -->
+                <a href="{{ url('/produk') }}" class="hidden lg:inline-flex items-center gap-2 px-6 py-3 bg-primary text-cream rounded-full border border-primary hover:bg-cream hover:text-primary transition-all w-fit">
+                    <span class="font-medium">Lihat Produk Kami</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Hero Image & Stats -->
+            <div class="relative flex flex-col justify-center px-2">
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="text-center border-r border-secondary/100 last:border-none">
+                        <div class="text-2xl sm:text-3xl font-bold text-secondary font-lato counter" data-target="20">0+</div>
+                        <div class="text-sm sm:text-base text-secondary mt-1">Mitra</div>
                     </div>
+                    <div class="text-center border-r border-secondary/100 last:border-none">
+                        <div class="text-2xl sm:text-3xl font-bold text-secondary font-lato counter" data-target="30">0+</div>
+                        <div class="text-sm sm:text-base text-secondary mt-1">Klien</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl sm:text-3xl font-bold text-secondary font-lato counter" data-target="150">0+</div>
+                        <div class="text-sm sm:text-base text-secondary mt-1">Produk</div>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <img src="aset/desaingraphicpetanisayur.png" alt="Petani Gondang sedang memanen sayuran segar..." class="w-full lg:w-[120%] max-w-none h-auto rounded-2xl object-cover lg:relative lg:-bottom-4 lg:left-1/2 lg:-translate-x-1/2 mx-auto hero-image">
+                
+                <!-- Tombol untuk layout kecil (di bawah gambar dan stats) -->
+                <div class="block lg:hidden mt-6 flex justify-start">
                     <a href="{{ url('/produk') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-cream rounded-full border border-primary hover:bg-cream hover:text-primary transition-all w-fit">
                         <span class="font-medium">Lihat Produk Kami</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,31 +213,10 @@
                         </svg>
                     </a>
                 </div>
-
-                <!-- Hero Image & Stats -->
-                <div class="relative flex flex-col justify-center px-2">
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-4 mb-8">
-                        <div class="text-center border-r border-secondary/100 last:border-none">
-                            <div class="text-2xl sm:text-3xl font-bold text-secondary font-lato counter" data-target="20">0+</div>
-                            <div class="text-sm sm:text-base text-secondary mt-1">Mitra</div>
-                        </div>
-                        <div class="text-center border-r border-secondary/100 last:border-none">
-                            <div class="text-2xl sm:text-3xl font-bold text-secondary font-lato counter" data-target="30">0+</div>
-                            <div class="text-sm sm:text-base text-secondary mt-1">Klien</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-bold text-secondary font-lato counter" data-target="150">0+</div>
-                            <div class="text-sm sm:text-base text-secondary mt-1">Produk</div>
-                        </div>
-                    </div>
-
-                    <!-- Image -->
-                    <img src="aset/desaingraphicpetanisayur.png" alt="Petani Gondang sedang memanen sayuran segar..." class="w-full lg:w-[120%] max-w-none h-auto rounded-2xl object-cover lg:relative lg:-bottom-4 lg:left-1/2 lg:-translate-x-1/2 mx-auto hero-image">
-                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- About Section -->
     <section id="tentang" class="py-12 sm:py-16 lg:py-20 bg-beige">
@@ -338,160 +381,104 @@
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Testimonial 1 -->
-                <div class="bg-cream rounded-3xl shadow-lg p-6 testimonial-card">
-                    <div class="flex items-center">
-                        <img src="aset/logobaterhub.png" alt="Logo BatterHub Restoran" class="w-20 h-20 rounded-2xl object-cover flex-shrink-0">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-secondary font-lato">BatterHub Restoran</h3>
-                            <p class="text-lg text-primary font-medium font-lato">Bapak Hermawan</p>
-                        </div>
-                    </div>
-                                        <hr class="my-4 border-secondary/30">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                    </div>
-                    <p class="text-secondary text-base leading-relaxed">
-                        "Pasokan untuk restoran saya jadi andal dan berkualitas. Agrotera memberikan harga yang adil dan pelayanan profesional."
-                    </p>
-                </div>
+            <!-- Container Swiper untuk testimonial -->
+            <div class="swiper testimonialSwiper">
+                <div class="swiper-wrapper">
+                    @foreach($testimonials as $testimonial)
+                        <div class="swiper-slide flex justify-center">
+                            <!-- Mulai pembungkus kartu testimonial -->
+                            <div class="testimonial-card">
+                                <div class="flex items-center">
+                                    @if($testimonial->image)
+                                        <img src="{{ asset('storage/' . $testimonial->image) }}" 
+                                            alt="{{ $testimonial->location ?? $testimonial->name }}" 
+                                            class="w-20 h-20 rounded-2xl object-cover flex-shrink-0">
+                                    @else
+                                        <div class="w-20 h-20 bg-secondary rounded-2xl flex items-center justify-center flex-shrink-0">
+                                            <!-- Icon fallback -->
+                                        </div>
+                                    @endif
+                                    <div class="ml-4">
+                                        <h3 class="text-xl font-bold text-secondary font-lato">{{ $testimonial->name }}</h3>
+                                        <p class="text-lg text-primary font-medium font-lato">{{ $testimonial->location }}</p>
+                                    </div>
+                                </div>
 
-                <!-- Testimonial 2 -->
-                <div class="bg-cream rounded-3xl shadow-lg p-6 testimonial-card">
-                    <div class="flex items-center">
-                        <img src="aset/logobangmail.png" alt="Logo Mie Ayam Jakarta" class="w-20 h-20 rounded-2xl object-cover flex-shrink-0">
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-secondary font-lato">Mie Ayam Jakarta</h3>
-                            <p class="text-lg text-primary font-medium font-lato">Bang Mail</p>
-                        </div>
-                    </div>
-                    <hr class="my-4 border-secondary/30">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                    </div>
-                    <p class="text-secondary text-base leading-relaxed">
-                        "Pasokan dari Agrotera selalu tepat waktu dan profesional. Mereka membuat operasional dapur kami berjalan lancar tanpa khawatir."
-                    </p>
-                </div>
+                                <hr class="my-4 border-secondary/30">
 
-                <!-- Testimonial 3 -->
-                <div class="bg-cream rounded-3xl shadow-lg p-6 testimonial-card">
-                    <div class="flex items-center">
-                        <div class="w-20 h-20 bg-secondary rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
+                                <div class="flex items-center mb-4">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <svg class="w-5 h-5 {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }}" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
+                                        </svg>
+                                    @endfor
+                                </div>
+
+                                <p class="text-secondary text-base leading-relaxed">
+                                    "{{ $testimonial->message }}"
+                                </p>
+                            </div>
+                            <!-- Akhir pembungkus kartu testimonial -->
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-secondary font-lato">Pelanggan di Semarang</h3>
-                            <p class="text-lg text-primary font-medium font-lato">Ibu Wulandari</p>
-                        </div>
-                    </div>
-                    <hr class="my-4 border-secondary/30">
-                    <div class="flex items-center mb-4">
-                                                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                        </svg>
-                    </div>
-                    <p class="text-secondary text-base leading-relaxed">
-                        "Produknya selalu segar, beda dari yang lain. Bangga bisa ikut mendukung petani lokal Sumowono."
-                    </p>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
 
+
     <!-- Map/Location Section -->
-<section id="kontak" class="py-12 sm:py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative rounded-3xl overflow-hidden bg-cover bg-center min-h-[400px] sm:h-[500px]" style="background-image: url('aset/ssmapsgede.png');">
-            <div class="absolute inset-0 flex items-center justify-center lg:justify-start lg:ml-4 p-4">
-                <!-- Bungkus seluruh card dengan <a> untuk membuatnya klikable -->
-                <a href="https://maps.app.goo.gl/Vs2q8pyVzaPdRkfcA" target="_blank" class="block bg-white rounded-2xl shadow-xl p-4 sm:p-6 max-w-sm w-full location-card" style="text-decoration: none; color: inherit;">
-                    <img src="aset/ssmapskecil.png" alt="Tampilan depan kantor Agrotera dengan papan nama besar dan area parkir luas" class="w-full h-32 sm:h-48 object-cover rounded-lg mb-4">
-                    <div class="space-y-4">
-                        <div>
-                            <!-- Hapus link di judul agar tidak duplikat -->
-                            <h3 class="text-xl font-semibold mb-2">
-                                Agrotera
-                            </h3>
-                            <div class="flex items-center gap-2 text-sm text-gray-600">
-                                <span>5.0</span>
-                                <span>(4,356)</span>
+    <section id="kontak" class="py-12 sm:py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative rounded-3xl overflow-hidden bg-cover bg-center min-h-[400px] sm:h-[500px]" style="background-image: url('aset/ssmapsgede.png');">
+                <div class="absolute inset-0 flex items-center justify-center lg:justify-start lg:ml-4 p-4">
+                    <!-- Bungkus seluruh card dengan <a> untuk membuatnya klikable -->
+                    <a href="https://maps.app.goo.gl/Vs2q8pyVzaPdRkfcA" target="_blank" class="block bg-white rounded-2xl shadow-xl p-4 sm:p-6 max-w-sm w-full location-card" style="text-decoration: none; color: inherit;">
+                        <img src="aset/ssmapskecil.png" alt="Tampilan depan kantor Agrotera dengan papan nama besar dan area parkir luas" class="w-full h-32 sm:h-48 object-cover rounded-lg mb-4">
+                        <div class="space-y-4">
+                            <div>
+                                <!-- Hapus link di judul agar tidak duplikat -->
+                                <h3 class="text-xl font-semibold mb-2">
+                                    Agrotera
+                                </h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-600">
+                                    <span>5.0</span>
+                                    <span>(4,356)</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <p class="text-sm text-secondary">Jl. Sumowono-Limbangan Km. 7 Kab.Kendal, Kabupaten Semarang, Jawa Tengah 51383</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <p class="text-sm font-medium text-green-700">Open 24 Hours</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                    <p class="text-sm text-secondary">0857-2369-2922</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="space-y-3">
-                            <div class="flex items-start gap-3">
-                                <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <p class="text-sm text-secondary">Jl. Sumowono-Limbangan Km. 7 Kab.Kendal, Kabupaten Semarang, Jawa Tengah 51383</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <p class="text-sm font-medium text-green-700">Open 24 Hours</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
-                                <p class="text-sm text-secondary">0857-2369-2922</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <!-- Footer -->
     @include('components.footer')
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         // Aktifkan ikon Lucide
@@ -541,6 +528,27 @@
                 });
             });
             observer.observe(slideElement);
+        });
+
+        // Inisialisasi Swiper untuk testimonial
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.testimonialSwiper', {
+                slidesPerView: 1, // Default 1 untuk mobile
+                spaceBetween: 10,
+                breakpoints: {
+                    640: { // sm
+                        slidesPerView: 2,
+                    },
+                    1024: { // lg
+                        slidesPerView: 3, // Tetap 3 sejajar
+                    },
+                },
+                freeMode: true, // aktifkan free scroll tanpa snap ke slide
+                loop: false, // Tidak loop agar geser hanya jika ada lebih dari 3
+                grabCursor: true, // Tambahan: Indikasi visual untuk drag/scroll
+                mousewheel: true, // Tambahan: Dukung scroll mouse wheel di desktop
+                // Navigation dihapus karena tidak ingin tombol
+            });
         });
     </script>
 </body>
