@@ -78,7 +78,7 @@ Route::post('/logout', Logout::class)->name('logout');
 
 // ========= USER DASHBOARD (FORTIFY/VOLT) =========
 
-Route::view('dashboard', 'dashboard')
+Route::get('/dashboard', [AdminController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

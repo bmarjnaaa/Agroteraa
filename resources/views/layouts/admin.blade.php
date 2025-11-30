@@ -162,8 +162,12 @@
             <header class="bg-white border-b border-gray-200">
                 <div class="flex items-center justify-end px-12 py-4">
                     <div class="flex items-center space-x-4">
-                        <div class="w-8 h-8 bg-secondary rounded-full border-2 border-secondary"></div>
-                        <span class="text-secondary font-lato font-semibold">Admin</span>
+                        <div class="w-8 h-8 bg-white rounded-full border-2 border-secondary flex items-center justify-center">
+                            <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-secondary font-lato font-semibold">Admin Agrotera</span>
                     </div>
                 </div>
             </header>

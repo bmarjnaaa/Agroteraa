@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User; // Import model User untuk CRUD
+use App\Models\User; // Import model User untuk CRUD         // Import model User
+use App\Models\News;         // Import model News  <<< Pastikan ini ada
+use App\Models\Product;      // Import model Product <<< Pastikan ini ada
+use App\Models\Testimonial;
 
 class AdminController extends Controller
 {
@@ -37,10 +40,23 @@ class AdminController extends Controller
     // Method untuk dashboard admin
     public function dashboard()
     {
-        // Ambil data user untuk submenu akun
-        $users = User::all(); // Atau filter jika ada role: User::where('role', 'admin')->get()
+        // Statistik dasar
+        $totalUsers = User::count();
+        $totalNews = News::count();  // Tambah ini
+        $totalProducts = Product::count();  // Tambah ini
+        $totalTestimonials = Testimonial::count();  // Tambah ini
+        // Data terbaru (ambil 5 terakhir)
+        $latestNews = News::latest()->take(5)->get();  // Tambah ini
+        $latestProducts = Product::latest()->take(5)->get();  // Tambah ini
+        $latestTestimonials = Testimonial::latest()->take(5)->get();  // Tambah ini
+        // Ambil data user untuk submenu akun (tetap ada)
+        $users = User::all(); 
         
-        return view('layouts.admin', compact('users')); // Pass $users ke view
+        // Pass semua data ke view
+        return view('dashboard', compact(
+            'users', 'totalUsers', 'totalNews', 'totalProducts', 'totalTestimonials',
+            'latestNews', 'latestProducts', 'latestTestimonials'
+        ));
     }
 
     // ========= METHOD BARU UNTUK CRUD USER (AKUN) =========

@@ -27,10 +27,10 @@
                 <td class="border border-gray-300 p-2">{{ $user->plain_password ?: 'Tidak ada' }}</td>
                 <td class="border border-gray-300 p-2">{{ $user->created_at->format('d M Y') }}</td>
                 <td class="border border-gray-300 p-2">
-                    <a href="{{ route('admin.users.edit', $user) }}" class="text-blue-600 mr-2">Edit</a>
+                    <a href="{{ route('admin.users.edit', $user) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2 inline-block">Edit</a>
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
                         @csrf @method('DELETE')
-                        <button type="submit" class="text-red-600" onclick="return confirm('Yakin hapus user ini?')">Hapus</button>
+                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" onclick="return confirm('Yakin hapus user ini?')">Hapus</button>
                     </form>
                 </td>
             </tr>

@@ -35,10 +35,10 @@
                     @endif
                 </td>
                 <td class="border border-gray-300 p-2">
-                    <a href="{{ route('admin.news.edit', $newsItem) }}" class="text-blue-600 mr-2">Edit</a>
+                    <a href="{{ route('admin.news.edit', $newsItem) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2 inline-block">Edit</a>
                     <form action="{{ route('admin.news.destroy', $newsItem) }}" method="POST" class="inline">
                         @csrf @method('DELETE')
-                        <button type="submit" class="text-red-600" onclick="return confirm('Yakin hapus berita ini?')">Hapus</button>
+                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" onclick="return confirm('Yakin hapus berita ini?')">Hapus</button>
                     </form>
                 </td>
             </tr>
