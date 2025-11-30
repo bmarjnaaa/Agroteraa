@@ -11,11 +11,11 @@
         </div>
         <div class="mb-4">
             <label class="block text-secondary font-lato">Lokasi (Opsional)</label>
-            <input type="text" name="location" class="w-full p-2 border border-gray-300 rounded" placeholder="Misalnya: Pelanggan di Semarang">
+            <input type="text" name="location" class="w-full p-2 border border-gray-300 rounded" placeholder="Masukkan kota anda">
         </div>
         <div class="mb-4">
             <label class="block text-secondary font-lato">Pesan Testimonial</label>
-            <textarea name="message" rows="4" class="w-full p-2 border border-gray-300 rounded" required></textarea>
+            <textarea name="message" rows="4" class="w-full p-2 border border-gray-300 rounded" placeholder="Maksimal 20 kata" required></textarea>
         </div>
         <div class="mb-4">
             <label class="block text-secondary font-lato">Rating (Bintang)</label>
